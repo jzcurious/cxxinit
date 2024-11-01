@@ -1,0 +1,42 @@
+root_path: "/home/void/Projects/myproj"
+std_version: 23
+
+subdirs:
+  myproj:
+    target_type: lib_headeronly
+    build_type:
+      - release
+      - debug
+
+  tests:
+    target_type: executable
+    deps:
+      myproj: subdir
+      googletest:
+        git_repo: https://github.com/google/googletest.git
+        git_tag: v1.15.2
+        link: GTest::gtest_main
+    build_type:
+      - release
+
+  benchmarks:
+    target_type: executable
+    deps:
+      myproj: subdir
+      benchmark:
+        git_repo: https://github.com/google/benchmark.git
+        git_tag: v1.9.0
+        link: benchmark::benchmark
+    build_type:
+      - release
+
+  security:
+    target_type: executable
+    deps:
+      myproj: subdir
+    build_type:
+      - debug
+
+cxx_flags:
+  debug: "-Wall -pedantic -O0 -g -fsanitize=address"
+  release: "-Wall -pedantic -O3"
