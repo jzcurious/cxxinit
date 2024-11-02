@@ -3,11 +3,11 @@ project({{project_name}} LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD {{std}})
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} {{debug_flags}}")
-else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} {{release_flags}}")
+{% for case_name, args in build_cases.items() %}
+if(CMAKE_BUILD_TYPE STREQUAL {{case_name}})
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} {{args.flags}}")
+    {%- for subdir in args.subdirs %}
+    add_subdirectory({{subdir}})
+    {%- endfor %}
 endif()
-
-add_subdirectory({{project_name}})
+{% endfor %}
