@@ -4,34 +4,39 @@ std_version: 23
 subdirs:
   myproj:
     target_type: lib_headeronly
+    sources_dir: src
+    headers_dir: include
     build_type:
       - release
       - debug
 
   tests:
     target_type: executable
+    sources_dir: src
     deps:
       myproj: subdir
       googletest:
-        git_repo: https://github.com/google/googletest.git
-        git_tag: v1.15.2
-        link: GTest::gtest_main
+        repo: https://github.com/google/googletest.git
+        tag: v1.15.2
+        link_as: GTest::gtest_main
     build_type:
       - release
 
   benchmarks:
     target_type: executable
+    sources_dir: src
     deps:
       myproj: subdir
       benchmark:
-        git_repo: https://github.com/google/benchmark.git
-        git_tag: v1.9.0
-        link: benchmark::benchmark
+        repo: https://github.com/google/benchmark.git
+        tag: v1.9.0
+        link_as: benchmark::benchmark
     build_type:
       - release
 
   security:
     target_type: executable
+    sources_dir: src
     deps:
       myproj: subdir
     build_type:
