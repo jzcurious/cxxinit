@@ -80,3 +80,8 @@ subdirs: # is required
 cxx_flags:
   debug: "-Wall -pedantic -O0 -g -fsanitize=address"
   release: "-Wall -pedantic -O3"
+
+keep_content:
+  - LICENSE
+  - README.md
+  - .git

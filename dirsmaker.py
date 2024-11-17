@@ -8,7 +8,7 @@ class DirsMaker:
     @staticmethod
     def make(project: Project, force=False):
         if force and project.path.exists():
-            DirsMaker.__remove_old(project.path)
+            DirsMaker.__clean_dir(project.path)
 
         project.path.mkdir(exist_ok=True, parents=True)
 
@@ -27,7 +27,7 @@ class DirsMaker:
         return True
 
     @staticmethod
-    def __remove_old(root_path: Path):
+    def __clean_dir(root_path: Path):
         for item in listdir(root_path):
             if item == "cxxinit.yml":
                 continue
