@@ -7,7 +7,7 @@ from shutil import rmtree
 class DirsMaker:
     @staticmethod
     def make(project: Project, force=False):
-        if force:
+        if force and project.path.exists():
             DirsMaker.__remove_old(project.path)
 
         project.path.mkdir(exist_ok=True, parents=True)

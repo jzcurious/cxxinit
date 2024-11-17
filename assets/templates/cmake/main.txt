@@ -1,13 +1,16 @@
-cmake_minimum_required(VERSION {{cmake_version}})
-project({{project_name}} LANGUAGES CXX)
+# This file was generated using cxxinit (https://github.com/jzcurious/cxxinit.git).
+
+cmake_minimum_required(VERSION {{project.cmake_version}})
+project({{project.name}} LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_STANDARD {{std}})
+set(CMAKE_CXX_STANDARD {{project.std}})
+
 {% for case_name, args in build_cases.items() %}
 if(CMAKE_BUILD_TYPE STREQUAL {{case_name}})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} {{args.flags}}")
-    {%- for subdir in args.subdirs %}
+    {% for subdir in args.subdirs %}
     add_subdirectory({{subdir}})
-    {%- endfor %}
+    {% endfor %}
 endif()
 {% endfor %}

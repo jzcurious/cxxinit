@@ -1,11 +1,32 @@
-root_path: "/home/void/Projects/myproj"
+root_path: "/home/void/Projects/myproj" # is required
 cmake_version: 3.24...3.30
 std: 23
 
-subdirs:
+struct:
   myproj-lib:
-    target_type: lib_headeronly
-    sources_dir: src
+    include:
+      - myproj.hpp
+      - some_header.hpp
+    some_empty_folder: null
+
+  tests:
+    src:
+      - tests.cpp
+      - some_src.cpp
+
+  benchmarks:
+    src:
+      - benchmarks.src
+      - some_src.cpp
+
+  security:
+    src:
+      - security.src
+      - some_src.cpp
+
+subdirs: # is required
+  myproj-lib:
+    target_type: interface
     headers_dir: include
     build_cases:
       - release
@@ -15,22 +36,31 @@ subdirs:
     target_type: executable
     sources_dir: src
     deps:
-      myproj:
-        subdir: true
+      myproj-lib:
+        dep_type: subdir
+        link_as: myproj
       googletest:
+        dep_type: git
         repo: https://github.com/google/googletest.git
         tag: v1.15.2
         link_as: GTest::gtest_main
     build_cases:
       - release
+    prepend:
+      - include(GoogleTest)
+    append:
+      - enable_testing()
+      - gtest_discover_tests(myproj-tests)
 
   benchmarks:
     target_type: executable
     sources_dir: src
     deps:
-      myproj:
-        subdir: true
+      myproj-lib:
+        dep_type: subdir
+        link_as: myproj
       benchmark:
+        dep_type: git
         repo: https://github.com/google/benchmark.git
         tag: v1.9.0
         link_as: benchmark::benchmark
@@ -41,8 +71,9 @@ subdirs:
     target_type: executable
     sources_dir: src
     deps:
-      myproj:
-        subdir: true
+      myproj-lib:
+        dep_type: subdir
+        link_as: myproj
     build_cases:
       - debug
 

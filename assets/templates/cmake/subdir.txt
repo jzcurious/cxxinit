@@ -1,0 +1,68 @@
+# This file was generated using cxxinit (https://github.com/jzcurious/cxxinit.git).
+
+{% set subproject_name = project.name + '-' + subdir.name %}
+{% set target_name = subproject_name %}
+
+cmake_minimum_required(VERSION {{project.cmake_version}})
+project({{subproject_name}} LANGUAGES CXX)
+
+{% if need_fetch_content %}
+include(FetchContent)
+{% endif %}
+
+{% for line in subdir.prepend %}
+{{line}}
+{% endfor %}
+
+{% for dep in subdir.deps %}
+{% if dep.type == 'local' %}
+find_package({{dep.name}} REQUIRED)
+{% endif%}
+{% if dep.type == 'git' %}
+FetchContent_Declare(
+    {{dep.name}}
+    GIT_REPOSITORY {{dep.repo}}
+    GIT_TAG {{dep.tag}}
+)
+FetchContent_MakeAvailable({{dep.name}})
+{% endif%}
+{% endfor %}
+
+{% if subdir.target_type != 'interface' %}
+{% if subdir.sources_dir %}
+file(GLOB SRC ${CMAKE_CURRENT_SOURCE_DIR}/{{subdir.sources_dir}}/*.cpp)
+{% endif %}
+{% endif %}
+
+{% if subdir.target_type == 'executable' %}
+add_executable({{target_name}} $SRC)
+{% endif %}
+
+{% if subdir.target_type == 'interface' %}
+add_library({{target_name}} INTERFACE)
+target_include_directories({{target_name}} INTERFACE
+    ${CMAKE_CURRENT_SOURCE_DIR}/{{subdir.headers_dir}}/
+)
+{% endif %}
+
+{% if subdir.target_type == 'static' or subdir.target_type == 'shared' %}
+add_library({{target_name}} {{subdir.target_type|upper}} $SRC)
+{% endif %}
+
+{% if subdir.headers_dir and subdir.target_type != 'interface' %}
+target_include_directories({{target_name}} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/{{subdir.headers_dir}}/
+)
+{% endif %}
+
+{% if subdir.deps %}
+target_link_libraries({{target_name}} PRIVATE
+{% for dep in subdir.deps %}
+    {{dep.link_as}}
+{% endfor %}
+)
+{% endif %}
+
+{% for line in subdir.append %}
+{{line}}
+{% endfor %}
