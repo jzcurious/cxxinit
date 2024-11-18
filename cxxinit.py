@@ -18,3 +18,4 @@ if __name__ == "__main__":
         exit(1)
 
     cmakegen.generate_lists(proj)
+    fetcher.fetch_all(proj)
