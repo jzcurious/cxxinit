@@ -1,6 +1,7 @@
 CONFIG_ALLOWED_NAMES = ["cxxinit.yaml", "cxxinit.yml"]
 DIST_PATH = "assets/dist"
 CMAKE_TEMPLATES_PATH = "assets/templates/cmake"
+SAMPLE_CONFIG_PATH = "assets/sample/cxxinit.yml"
 
 
 DEFAULT_CONFIG_DICT = {

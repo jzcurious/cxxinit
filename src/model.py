@@ -7,8 +7,10 @@ class Project:
     def __init__(self, config_path: str | Path):
         self.config_dict = DEFAULT_CONFIG_DICT.copy()
         self.config_path = Path(config_path)
+
         with self.config_path.open() as f:
             self.config_dict.update(yaml.load(f, Loader=yaml.SafeLoader))
+
         self.path = Path(self.config_dict["root_path"])
         self.name = self.path.name
         self.std = self.config_dict["std"]

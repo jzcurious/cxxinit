@@ -11,11 +11,18 @@ if __name__ == "__main__":
     parser = ArgumentParser()
 
     parser.add_argument(
+        "-s",
+        "--sample",
+        action="store_true",
+        help="print sample configuration and exit",
+    )
+
+    parser.add_argument(
         "-c",
         "--config",
         type=str,
-        required=True,
-        help="specify the path to configure file",
+        default=SAMPLE_CONFIG_PATH,
+        help="specify the path to the configuration file",
     )
 
     parser.add_argument(
@@ -26,6 +33,12 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+
+    if args.sample:
+        with open(SAMPLE_CONFIG_PATH, "r") as f:
+            print(f.read())
+        exit(0)
+
     config_path = Path(args.config)
 
     if not (config_path.name in CONFIG_ALLOWED_NAMES):
