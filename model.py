@@ -27,7 +27,7 @@ class Project:
             Subdir(name, self, conf)
             for name, conf in self.config_dict["subdirs"].items()
         ]
-        self.struct = self.config_dict.get("struct", None)
+        self.tree = self.config_dict.get("tree", None)
 
 
 class Subdir:

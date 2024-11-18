@@ -2,27 +2,28 @@ root_path: "/home/void/Projects/myproj" # is required
 cmake_version: 3.24...3.30
 std: 23
 
-struct:
-  myproj-lib:
-    include:
-      - myproj.hpp
-      - some_header.hpp
-    some_empty_folder: null
+tree:
+  - myproj-lib:
+      - include:
+          - myproj.hpp
+          - some_header.hpp
+          - some_nested_folder: null
+      - some_empty_folder: null
 
-  tests:
-    src:
-      - tests.cpp
-      - some_src.cpp
+  - tests:
+      - src:
+          - tests.cpp
+          - some_src.cpp
 
-  benchmarks:
-    src:
-      - benchmarks.src
-      - some_src.cpp
+  - benchmarks:
+      - src:
+          - benchmarks.cpp
+          - some_src.cpp
 
-  security:
-    src:
-      - security.src
-      - some_src.cpp
+  - security:
+      - src:
+          - security.cpp
+          - some_src.cpp
 
 subdirs: # is required
   myproj-lib:
@@ -80,8 +81,3 @@ subdirs: # is required
 cxx_flags:
   debug: "-Wall -pedantic -O0 -g -fsanitize=address"
   release: "-Wall -pedantic -O3"
-
-keep_content:
-  - LICENSE
-  - README.md
-  - .git
