@@ -1,8 +1,9 @@
 from model import Project
 from jinja2 import Environment, FileSystemLoader
+from constansts import *
 
 
-_jenv = Environment(loader=FileSystemLoader("assets/templates/cmake"))
+_jenv = Environment(loader=FileSystemLoader(CMAKE_TEMPLATES_PATH))
 
 
 def generate_lists(project: Project):

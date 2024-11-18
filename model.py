@@ -1,21 +1,12 @@
 from pathlib import Path
 import yaml
-
-
-DEFAULT_CONFIG_DICT = {
-    "cmake_version": "3.24",
-    "std": 23,
-    "cxx_flags": {
-        "debug": "-Wall -pedantic -O0 -g -fsanitize=address",
-        "release": "-Wall -pedantic -O3",
-    },
-}
+from constansts import *
 
 
 class Project:
-    def __init__(self, config_path_str: str):
+    def __init__(self, config_path: str | Path):
         self.config_dict = DEFAULT_CONFIG_DICT.copy()
-        self.config_path = Path(config_path_str)
+        self.config_path = Path(config_path)
         with self.config_path.open() as f:
             self.config_dict.update(yaml.load(f, Loader=yaml.SafeLoader))
         self.path = Path(self.config_dict["root_path"])

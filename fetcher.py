@@ -1,18 +1,21 @@
 from model import Project
 from pathlib import Path
 from shutil import copytree, copy as copy_file
+from constansts import *
 
 
-def find_content(name: str) -> Path | None:
+def find_content(name: str) -> tuple[str, Path | None]:
     path = Path(name)
 
     if path.exists():
-        return path
+        return name, path
 
-    path = Path("assets/dist").joinpath(name)
+    path = Path(DIST_PATH).joinpath(name)
 
     if path.exists():
-        return path
+        return name, path
+
+    return name, None
 
 
 def fetch_all(project: Project) -> tuple[list[Path], list[Path]]:
@@ -23,14 +26,14 @@ def fetch_all(project: Project) -> tuple[list[Path], list[Path]]:
 
     for item in content:
         if isinstance(item, dict):
-            src_path = find_content(list(item.values())[0])
+            src_name, src_path = find_content(list(item.values())[0])
             dst_path = project.path.joinpath(list(item.keys())[0])
         else:
-            src_path = find_content(item)
+            src_name, src_path = find_content(item)
             dst_path = project.path.joinpath(item)
 
         if not src_path:
-            not_found.append(src_path)
+            not_found.append(src_name)
             continue
         else:
             found.append(src_path)
