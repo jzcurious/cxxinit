@@ -1,6 +1,8 @@
 from model import Project
 import treemaker
 import cmakegen
+import fetcher
+
 from pathlib import Path
 
 

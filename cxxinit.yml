@@ -25,6 +25,11 @@ tree:
           - security.cpp
           - some_src.cpp
 
+fetch:
+  - .gitignore
+  - .clang-format: .clang-format
+  - some_file.txt: security/src
+
 subdirs: # is required
   myproj-lib:
     target_type: interface

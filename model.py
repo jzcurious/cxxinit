@@ -28,6 +28,7 @@ class Project:
             for name, conf in self.config_dict["subdirs"].items()
         ]
         self.tree = self.config_dict.get("tree", None)
+        self.fetch = self.config_dict.get("fetch", None)
 
 
 class Subdir:
