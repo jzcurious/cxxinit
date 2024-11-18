@@ -2,8 +2,7 @@ from model import Project
 import treemaker
 import cmakegen
 import fetcher
-
-from pathlib import Path
+from argparse import ArgumentParser
 
 
 if __name__ == "__main__":
@@ -18,4 +17,5 @@ if __name__ == "__main__":
         exit(1)
 
     cmakegen.generate_lists(proj)
-    fetcher.fetch_all(proj)
+
+    found = fetcher.fetch_all(proj)

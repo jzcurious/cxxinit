@@ -15,10 +15,11 @@ def find_content(name: str) -> Path | None:
         return path
 
 
-def fetch_all(project: Project) -> list[Path]:
+def fetch_all(project: Project) -> tuple[list[Path], list[Path]]:
     content = project.fetch
 
     found = []
+    not_found = []
 
     for item in content:
         if isinstance(item, dict):
@@ -29,6 +30,7 @@ def fetch_all(project: Project) -> list[Path]:
             dst_path = project.path.joinpath(item)
 
         if not src_path:
+            not_found.append(src_path)
             continue
         else:
             found.append(src_path)
@@ -38,4 +40,4 @@ def fetch_all(project: Project) -> list[Path]:
         else:
             copytree(src_path, dst_path)
 
-    return found
+    return found, not_found
