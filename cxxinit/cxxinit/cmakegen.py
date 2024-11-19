@@ -1,9 +1,9 @@
-from model import Project
+from cxxinit.model import Project
+import cxxinit.constansts as constansts
 from jinja2 import Environment, FileSystemLoader
-from constansts import *
 
 
-_jenv = Environment(loader=FileSystemLoader(CMAKE_TEMPLATES_PATH))
+_jenv = Environment(loader=FileSystemLoader(constansts.CMAKE_TEMPLATES_PATH))
 
 
 def generate_lists(project: Project):

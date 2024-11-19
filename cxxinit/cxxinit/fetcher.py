@@ -1,7 +1,7 @@
-from model import Project
+from cxxinit.model import Project
+import cxxinit.constansts as constansts
 from pathlib import Path
 from shutil import copytree, copy as copy_file
-from constansts import *
 
 
 def find_content(name: str) -> tuple[str, Path | None]:
@@ -10,7 +10,7 @@ def find_content(name: str) -> tuple[str, Path | None]:
     if path.exists():
         return name, path
 
-    path = Path(DIST_PATH).joinpath(name)
+    path = Path(constansts.DIST_PATH).joinpath(name)
 
     if path.exists():
         return name, path

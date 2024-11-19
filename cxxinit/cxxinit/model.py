@@ -1,11 +1,11 @@
+import cxxinit.constansts as constansts
 from pathlib import Path
 import yaml
-from constansts import *
 
 
 class Project:
     def __init__(self, config_path: str | Path):
-        self.config_dict = DEFAULT_CONFIG_DICT.copy()
+        self.config_dict = constansts.DEFAULT_CONFIG_DICT.copy()
         self.config_path = Path(config_path)
 
         with self.config_path.open() as f:

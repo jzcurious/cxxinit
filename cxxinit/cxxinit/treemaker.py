@@ -1,5 +1,5 @@
-from model import Project
-from constansts import *
+from cxxinit.model import Project
+import cxxinit.constansts as constansts
 from pathlib import Path
 from os import listdir
 
@@ -11,7 +11,7 @@ def _check_root_dir(path: Path, add=False) -> bool:
         if len(ls) == 0:
             return True
 
-        if (len(ls) == 1) and (ls[0] in CONFIG_ALLOWED_NAMES):
+        if (len(ls) == 1) and (ls[0] in constansts.CONFIG_ALLOWED_NAMES):
             return True
 
         return False

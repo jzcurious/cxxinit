@@ -1,13 +1,14 @@
-from model import Project
-import treemaker
-import cmakegen
-import fetcher
+from cxxinit.model import Project
+import cxxinit.treemaker as treemaker
+import cxxinit.cmakegen as cmakegen
+import cxxinit.fetcher as fetcher
+import cxxinit.constansts as constansts
 from argparse import ArgumentParser
-from constansts import *
 from pathlib import Path
+from sys import argv
 
 
-if __name__ == "__main__":
+def main():
     parser = ArgumentParser()
 
     parser.add_argument(
@@ -21,7 +22,7 @@ if __name__ == "__main__":
         "-c",
         "--config",
         type=str,
-        default=SAMPLE_CONFIG_PATH,
+        default=constansts.SAMPLE_CONFIG_PATH,
         help="specify the path to the configuration file",
     )
 
@@ -32,16 +33,20 @@ if __name__ == "__main__":
         help="add files to existing project",
     )
 
+    if len(argv) == 1:
+        parser.print_usage()
+        exit(0)
+
     args = parser.parse_args()
 
     if args.sample:
-        with open(SAMPLE_CONFIG_PATH, "r") as f:
+        with open(constansts.SAMPLE_CONFIG_PATH, "r") as f:
             print(f.read())
         exit(0)
 
     config_path = Path(args.config)
 
-    if not (config_path.name in CONFIG_ALLOWED_NAMES):
+    if not (config_path.name in constansts.CONFIG_ALLOWED_NAMES):
         print(
             'Failed: the configuration file must be named "cxxinit.yml" or "cxxinit.yaml".'
         )
@@ -69,3 +74,7 @@ if __name__ == "__main__":
 
     print(f"The project has been successfully created ({proj.path}).")
     exit(0)
+
+
+if __name__ == "__main__":
+    main()
