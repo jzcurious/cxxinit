@@ -55,6 +55,7 @@ subdirs: # is required
   myproj-lib:
     target_type: interface
     headers_dir: include
+    alias: myproj
     build_cases:
       - release
       - debug
