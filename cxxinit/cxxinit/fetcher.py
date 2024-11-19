@@ -10,7 +10,7 @@ def find_content(name: str) -> tuple[str, Path | None]:
     if path.exists():
         return name, path
 
-    path = Path(constansts.DIST_PATH).joinpath(name)
+    path = Path(str(constansts.DIST_PATH)).joinpath(name)
 
     if path.exists():
         return name, path

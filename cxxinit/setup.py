@@ -29,6 +29,7 @@ setup(
         "cxxinit": [
             "assets/sample/*",
             "assets/templates/cmake/*",
+            "assets/dist/",
             "assets/dist/.clang-format",
             "assets/dist/.gitignore",
         ],
