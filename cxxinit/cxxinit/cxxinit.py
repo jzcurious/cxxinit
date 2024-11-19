@@ -40,7 +40,7 @@ def main():
     args = parser.parse_args()
 
     if args.sample:
-        with open(constansts.SAMPLE_CONFIG_PATH, "r") as f:
+        with constansts.SAMPLE_CONFIG_PATH.open("r") as f:
             print(f.read())
         exit(0)
 
