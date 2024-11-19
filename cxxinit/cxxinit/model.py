@@ -32,6 +32,7 @@ class Subdir:
         self.target_type = config_dict_subdir.get("target_type", None)
         self.sources_dir = config_dict_subdir.get("sources_dir", None)
         self.headers_dir = config_dict_subdir.get("headers_dir", None)
+        self.alias = config_dict_subdir.get("alias", None)
         self.build_cases = config_dict_subdir.get("build_cases", ["debug", "release"])
         self.prepend = config_dict_subdir.get("prepend", [])
         self.append = config_dict_subdir.get("append", [])

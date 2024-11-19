@@ -43,10 +43,12 @@ add_library({{target_name}} INTERFACE)
 target_include_directories({{target_name}} INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/{{subdir.headers_dir}}/
 )
+add_library({{subdir.alias}} ALIAS {{target_name}})
 {% endif %}
 
 {% if subdir.target_type == 'static' or subdir.target_type == 'shared' %}
 add_library({{target_name}} {{subdir.target_type|upper}} $SRC)
+add_library({{subdir.alias}} ALIAS {{target_name}})
 {% endif %}
 
 {% if subdir.headers_dir and subdir.target_type != 'interface' %}
