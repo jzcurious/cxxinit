@@ -1,12 +1,12 @@
 from cxxinit.model import Project
 import cxxinit.constansts as constansts
-from pathlib import Path
+from pathlib import Path, PosixPath
 from shutil import copytree, copy as copy_file
 from importlib.resources.abc import Traversable
 from importlib.readers import MultiplexedPath
 
 
-def find_content(name: str) -> tuple[str, None | Traversable]:
+def find_content(name: str) -> tuple[str, None | Path]:
     path = Path(name)
 
     if path.exists():
@@ -14,7 +14,9 @@ def find_content(name: str) -> tuple[str, None | Traversable]:
 
     try:
         resource = constansts.DIST_PATH.joinpath(name)
-        return name, resource
+        if isinstance(resource, Path):
+            if resource.exists():
+                return name, resource
     except ModuleNotFoundError:
         pass
 
@@ -39,20 +41,11 @@ def fetch_all(project: Project) -> tuple[list[Path], list[Path]]:
             not_found.append(src_name)
             continue
 
-        if isinstance(src_path, Path):
-            print(f"{type(src_path)}: {src_path}")
-            if src_path.is_file():
-                copy_file(src_path, dst_path)
-            else:
-                copytree(src_path, dst_path)
-            continue
-
-        if isinstance(src_path, MultiplexedPath):
-            print(f"{type(src_path)}: {src_path}")
-            if src_path.is_file():
-                with open(dst_path, "wb") as dst:
-                    dst.write(src_path.read_bytes())
-            else:
-                not_found.append(src_name)
+        print(f"{type(src_path)}: {src_path}")
+        if src_path.is_file():
+            copy_file(src_path, dst_path)
+        else:
+            copytree(src_path, dst_path)
+        continue
 
     return found, not_found
