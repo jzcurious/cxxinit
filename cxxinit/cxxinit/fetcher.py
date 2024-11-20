@@ -2,8 +2,6 @@ from cxxinit.model import Project
 import cxxinit.constansts as constansts
 from pathlib import Path, PosixPath
 from shutil import copytree, copy as copy_file
-from importlib.resources.abc import Traversable
-from importlib.readers import MultiplexedPath
 
 
 def find_content(name: str) -> tuple[str, None | Path]:
@@ -41,7 +39,6 @@ def fetch_all(project: Project) -> tuple[list[Path], list[Path]]:
             not_found.append(src_name)
             continue
 
-        print(f"{type(src_path)}: {src_path}")
         if src_path.is_file():
             copy_file(src_path, dst_path)
         else:
