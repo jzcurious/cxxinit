@@ -10,6 +10,9 @@ def find_content(name: str) -> tuple[str, None | Path]:
     if path.exists():
         return name, path
 
+    if name[0] == ".":
+        name = name[1:]
+
     try:
         resource = constansts.DIST_PATH.joinpath(name)
         if isinstance(resource, Path):

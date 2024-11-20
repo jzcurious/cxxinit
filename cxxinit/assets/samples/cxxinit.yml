@@ -1,23 +1,5 @@
-# cxxinit
+# A sample configuration (assets/sample/cxxinit.yml)
 
-An utility for initializing a C++ project. Based on CMake.
-
-### Installation
-
-```bash
-pip install -e "git+https://github.com/jzcurious/cxxinit.git/#egg=cxxinit&subdirectory=cxxinit"
-```
-
-### Using
-
-1. Create a configuration file (cxxinit.yml) in the directory of the future project or in any other directory.
-2. Type in terminal: "cxxinit -c /path/to/cxxinit.yml".
-3. Enjoy.
-
-
-### Config sample
-
-```yaml
 root_path: "/home/void/Projects/myproj" # is required
 cmake_version: 3.24...3.30
 std: 23
@@ -47,8 +29,8 @@ tree:
           - some_src.cpp
 
 fetch:
-  - .gitignore
-  - .clang-format: .clang-format
+  - .gitignore: gitignore
+  - .clang-format: clang-format
   - some_file.txt: /home/void/some_file.txt
 
 subdirs: # is required
@@ -108,4 +90,3 @@ subdirs: # is required
 cxx_flags:
   debug: "-Wall -pedantic -O0 -g -fsanitize=address"
   release: "-Wall -pedantic -O3"
-```

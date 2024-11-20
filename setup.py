@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="cxxinit",
-    version="1.0.0",
+    version="0.1.0",
     description="An utility for initializing a C++ project. Based on CMake.",
     url="https://github.com/jzcurious/cxxinit",
     author="void",
@@ -13,7 +13,6 @@ setup(
         "Jinja2 >= 3.1.4",
         "MarkupSafe >= 3.0.2",
         "PyYAML >= 6.0.2",
-        "setuptools >= 75.5.0",
     ],
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -21,4 +20,15 @@ setup(
         "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent",
     ],
+    entry_points={
+        "console_scripts": [
+            "cxxinit = cxxinit.cxxinit:main",
+        ],
+    },
+    package_data={
+        "cxxinit": [
+            "assets/samples/*",
+            "assets/templates/cmake/*",
+        ],
+    },
 )
