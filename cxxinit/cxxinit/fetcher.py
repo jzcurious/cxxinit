@@ -40,7 +40,7 @@ def fetch_all(project: Project) -> tuple[list[Path], list[Path]]:
             continue
 
         if isinstance(src_path, Path):
-            print("Path")
+            print(f"{type(src_path)}: {src_path}")
             if src_path.is_file():
                 copy_file(src_path, dst_path)
             else:
@@ -48,7 +48,7 @@ def fetch_all(project: Project) -> tuple[list[Path], list[Path]]:
             continue
 
         if isinstance(src_path, MultiplexedPath):
-            print("MultiplexedPath")
+            print(f"{type(src_path)}: {src_path}")
             if src_path.is_file():
                 with open(dst_path, "wb") as dst:
                     dst.write(src_path.read_bytes())
