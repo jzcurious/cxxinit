@@ -18,7 +18,7 @@ pip install "git+https://github.com/jzcurious/cxxinit.git"
 ### Config sample
 
 ```yaml
-# A sample configuration (assets/sample/cxxinit.yml)
+# A sample configuration (assets/samples/cxxinit.yml)
 
 root_path: "/home/void/Projects/myproj" # is required
 cmake_version: 3.24...3.30
