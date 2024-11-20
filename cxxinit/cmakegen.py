@@ -3,7 +3,9 @@ import cxxinit.constansts as constansts
 from jinja2 import Environment, FileSystemLoader
 
 
-_jenv = Environment(loader=FileSystemLoader(constansts.CMAKE_TEMPLATES_PATH))
+_jenv = Environment(
+    loader=FileSystemLoader(constansts.CMAKE_TEMPLATES_PATH),  # type: ignore
+)
 
 
 def generate_lists(project: Project):
