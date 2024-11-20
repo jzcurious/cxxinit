@@ -4,9 +4,9 @@ CONFIG_ALLOWED_NAMES = ["cxxinit.yaml", "cxxinit.yml"]
 
 RESOURCES = files("cxxinit.assets")
 
-DIST_PATH = RESOURCES.joinpath("dist")
+DIST_PATH = RESOURCES.joinpath("samples")
 CMAKE_TEMPLATES_PATH = RESOURCES.joinpath("templates").joinpath("cmake")
-SAMPLE_CONFIG_PATH = RESOURCES.joinpath("sample").joinpath("cxxinit.yml")
+SAMPLE_CONFIG_PATH = RESOURCES.joinpath("samples").joinpath("cxxinit.yml")
 
 
 DEFAULT_CONFIG_DICT = {

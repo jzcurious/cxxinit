@@ -27,9 +27,8 @@ setup(
     },
     package_data={
         "cxxinit": [
-            "assets/sample/*",
+            "assets/samples/*",
             "assets/templates/cmake/*",
-            "assets/dist/*",
         ],
     },
 )
