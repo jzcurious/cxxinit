@@ -31,7 +31,7 @@ tree:
 fetch:
   - .gitignore
   - .clang-format: clang-format
-  - some_file.txt: /home/void/some_file.txt
+  - some_folder/some_file.txt: /home/void/some_file.txt
 
 subdirs: # is required
   myproj-lib:

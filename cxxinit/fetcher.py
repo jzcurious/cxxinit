@@ -42,6 +42,8 @@ def fetch_all(project: Project) -> tuple[list[Path], list[Path]]:
             not_found.append(src_name)
             continue
 
+        dst_path.parent.mkdir(parents=True, exist_ok=True)
+
         if src_path.is_file():
             copy_file(src_path, dst_path)
         else:

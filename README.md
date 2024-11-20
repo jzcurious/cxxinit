@@ -18,6 +18,8 @@ pip install "git+https://github.com/jzcurious/cxxinit.git"
 ### Config sample
 
 ```yaml
+# A sample configuration (assets/sample/cxxinit.yml)
+
 root_path: "/home/void/Projects/myproj" # is required
 cmake_version: 3.24...3.30
 std: 23
@@ -48,8 +50,8 @@ tree:
 
 fetch:
   - .gitignore
-  - .clang-format: .clang-format
-  - some_file.txt: /home/void/some_file.txt
+  - .clang-format: clang-format
+  - some_folder/some_file.txt: /home/void/some_file.txt
 
 subdirs: # is required
   myproj-lib:
