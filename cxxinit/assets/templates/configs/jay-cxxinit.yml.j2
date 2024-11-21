@@ -1,0 +1,83 @@
+# args: project_name, std
+
+root_path: "/home/void/Projects/{{project_name}}"
+cmake_version: 3.24
+std: {{std}}
+
+tree:
+  - {{project_name}}-lib:
+      - include:
+          - {{project_name}}: null
+
+  - tests:
+      - src:
+          - tests.cpp
+
+  - benchmarks:
+      - src:
+          - benchmarks.cpp
+
+  - security:
+      - src:
+          - security.cpp
+
+fetch:
+  - .gitignore
+  - .clang-format
+
+subdirs:
+  {{project_name}}-lib:
+    target_type: interface
+    headers_dir: include
+    alias: {{project_name}}
+    build_cases:
+      - release
+      - debug
+
+  tests:
+    target_type: executable
+    sources_dir: src
+    deps:
+      {{project_name}}-lib:
+        dep_type: subdir
+        link_as: {{project_name}}
+      googletest:
+        dep_type: git
+        repo: https://github.com/google/googletest.git
+        link_as: GTest::gtest_main
+    build_cases:
+      - debug
+      - release
+    prepend:
+      - include(GoogleTest)
+    append:
+      - enable_testing()
+      - gtest_discover_tests({{project_name}}-tests)
+
+  benchmarks:
+    target_type: executable
+    sources_dir: src
+    deps:
+      {{project_name}}-lib:
+        dep_type: subdir
+        link_as: {{project_name}}
+      benchmark:
+        dep_type: git
+        repo: https://github.com/google/benchmark.git
+        link_as: benchmark::benchmark
+    build_cases:
+      - release
+
+  security:
+    target_type: executable
+    sources_dir: src
+    deps:
+      {{project_name}}-lib:
+        dep_type: subdir
+        link_as: {{project_name}}
+    build_cases:
+      - debug
+
+cxx_flags:
+  debug: "-Wall -pedantic -O0 -g -fsanitize=address"
+  release: "-Wall -pedantic -O3"
