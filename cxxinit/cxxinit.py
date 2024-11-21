@@ -22,7 +22,7 @@ def parse_args() -> tuple[ArgumentParser, Namespace]:
         "-c",
         "--config",
         type=str,
-        default=constansts.SAMPLE_CONFIG_PATH,
+        default=None,
         help="specify the path to the configuration file or existing project directory",
     )
 
@@ -50,15 +50,17 @@ def find_config(passed_path: str | None) -> Path | None:
             if path.exists():
                 return path
 
+    if config_path.is_dir() or not config_path.exists():
+        print("Failed: configuration file not found.")
+        return None
+
     if not (config_path.name in constansts.CONFIG_ALLOWED_NAMES):
         print(
             'Failed: the configuration file must be named "cxxinit.yml" or "cxxinit.yaml".'
         )
         return None
 
-    if not config_path.exists():
-        print("Failed: configuration file not found.")
-        return None
+    return config_path
 
 
 def make_project(config_path: Path, add: bool = False) -> Project | None:
@@ -84,10 +86,6 @@ def make_project(config_path: Path, add: bool = False) -> Project | None:
 
 def main():
     parser, args = parse_args()
-
-    if len(argv) == 1:
-        parser.print_usage()
-        exit(0)
 
     if args.sample:
         print_sample()
